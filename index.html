@@ -18,173 +18,139 @@
         
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--cream-bg); margin: 0; padding-bottom: 50px; color: #333; }
         
-        /* Brand Header */
-        .app-header { 
-            background: var(--deep-green); 
-            padding: 15px; 
-            text-align: center; 
-            border-bottom: 5px solid var(--saffron-yellow); 
-            color: var(--saffron-yellow);
-        }
+        /* UI Styles */
+        .app-header { background: var(--deep-green); padding: 15px; text-align: center; border-bottom: 5px solid var(--saffron-yellow); color: var(--saffron-yellow); }
         .app-header h1 { margin: 5px 0; font-size: 1.8rem; text-transform: uppercase; }
-
         .tab-nav { display: flex; justify-content: center; background: white; padding: 10px; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .tab-btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; background: #eee; transition: 0.3s; }
+        .tab-btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; background: #eee; }
         .tab-btn.active { background: var(--primary-green); color: var(--saffron-yellow); }
-
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
         .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 6px solid var(--primary-green); margin-bottom: 20px; }
-        
-        /* Search Box */
         .search-box { position: relative; margin: 15px 0; }
-        #nameSearch { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
-        #suggestions { position: absolute; width: 100%; background: white; border: 1px solid #ddd; max-height: 180px; overflow-y: auto; z-index: 100; display: none; border-radius: 8px; }
+        #nameSearch { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        #suggestions { position: absolute; width: 100%; background: white; border: 1px solid #ddd; max-height: 180px; overflow-y: auto; z-index: 100; display: none; }
         .suggestion-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
-        .suggestion-item:hover { background: var(--cream-bg); }
 
-        /* PDF Layout - CENTERED & SINGLE PAGE */
+        /* PDF Styles - Table based for maximum compatibility */
         #pdf-export-area { 
             background: white; 
             width: 700px; 
-            padding: 30px; 
+            padding: 20px; 
             margin: 0 auto; 
             color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers all children horizontally */
-            text-align: center;
-            gap: 20px;
         }
         
-        .ticket-box { 
+        .ticket-table { 
             width: 100%; 
-            border: 3px solid var(--primary-green); 
+            border: 3px solid #27ae60; 
+            border-collapse: collapse; 
             border-radius: 12px; 
-            display: flex; 
-            overflow: hidden; 
-            background: #fff;
-            height: 240px;
-            text-align: left; /* Keep ticket text left-aligned */
+            overflow: hidden;
+            background: #ffffff;
         }
-        .ticket-main { flex: 3; padding: 15px; border-right: 2px dashed var(--primary-green); position: relative; }
-        .ticket-stub { flex: 1.2; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f9fff9; }
+
+        .ticket-main-td { 
+            padding: 20px; 
+            border-right: 2px dashed #27ae60; 
+            vertical-align: top;
+            width: 70%;
+        }
+
+        .ticket-stub-td { 
+            padding: 10px; 
+            background: #f9fff9; 
+            text-align: center; 
+            vertical-align: middle;
+            width: 30%;
+        }
+
+        .event-title { color: #1e8449; margin: 0; font-size: 22px; font-weight: 800; }
+        .year-name { color: #d35400; font-weight: bold; font-size: 13px; margin-bottom: 10px; }
+        .guest-name { font-size: 28px; font-weight: 900; margin: 10px 0; color: #222; border-left: 6px solid #f1c40f; padding-left: 12px; }
+        .id-badge { background: #1e8449; color: #f1c40f; padding: 4px 12px; border-radius: 4px; display: inline-block; font-family: monospace; font-weight: bold; }
+        .venue-box { background: #fdfae6; padding: 10px; border-radius: 8px; border: 1px solid #f1c40f; margin-top: 15px; font-size: 13px; }
+
+        .flyer-row { text-align: center; padding-top: 25px; }
+        .flyer-row img { width: 60%; border-radius: 8px; border: 1px solid #ddd; }
         
-        .event-title { color: var(--deep-green); margin: 0; font-size: 20px; font-weight: 800; }
-        .year-name { color: #d35400; font-weight: bold; font-size: 12px; margin-bottom: 5px; }
-        .guest-name { font-size: 26px; font-weight: 900; margin: 5px 0; color: #222; border-left: 5px solid var(--saffron-yellow); padding-left: 10px; }
-        
-        .venue-summary { background: #fdfae6; padding: 10px; border-radius: 8px; border: 1px solid var(--saffron-yellow); margin-top: 10px; font-size: 13px; }
-
-        /* CENTERED FLYER */
-        .flyer-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        .flyer-container img { 
-            width: 60%; /* Adjusted to ensure fit on one page */
-            height: auto;
-            border-radius: 8px; 
-            border: 1px solid #eee;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .footer-mention { font-size: 12px; color: #555; margin-top: 10px; max-width: 80%; }
-
-        #reader { width: 100%; border-radius: 10px; overflow: hidden; }
+        .footer-note { text-align: center; font-size: 12px; color: #666; padding-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="app-header">
-    <img src="tablogo.jpg" style="height: 50px; margin-bottom: 5px;" alt="TAB Logo">
+    <img src="tablogo.jpg" style="height: 50px;" alt="Logo">
     <h1>Ugadi Ticket Manager 2026</h1>
 </div>
 
 <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('gen-view', this)">🎟️ Generate Ticket</button>
-    <button class="tab-btn" onclick="switchTab('scan-view', this)">🔍 Entry Scanner</button>
+    <button class="tab-btn active" onclick="switchTab('gen-view', this)">🎟️ Ticket Generator</button>
+    <button class="tab-btn" onclick="switchTab('scan-view', this)">🔍 Scanner</button>
 </div>
 
 <div class="container">
     <div id="gen-view" class="view">
         <div class="card">
             <label><b>1. Load MyData.csv</b></label><br>
-            <input type="file" id="csvFile" accept=".csv" style="margin: 10px 0 20px 0;">
-            
+            <input type="file" id="csvFile" accept=".csv" style="margin-top:10px;">
             <div class="search-box">
-                <label><b>2. Search Guest Name</b></label>
-                <input type="text" id="nameSearch" placeholder="Type guest name..." autocomplete="off">
+                <label><b>2. Search Guest</b></label>
+                <input type="text" id="nameSearch" placeholder="Enter name...">
                 <div id="suggestions"></div>
             </div>
         </div>
 
         <div id="preview-section" style="display:none;">
-            <div class="card" style="border-top-color: var(--saffron-yellow);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h3 style="margin:0; color: var(--deep-green);">Ticket Preview</h3>
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <h3 style="margin:0;">Ticket Preview</h3>
                     <button onclick="generatePDF()" class="tab-btn active">Download PDF</button>
                 </div>
-                
-                <div style="background: #e0e0e0; padding: 20px; border-radius: 10px; border: 1px solid #ccc;">
-                    <div id="pdf-export-area">
-                        <div class="ticket-box">
-                            <div class="ticket-main">
-                                <h2 class="event-title">UGADI SAMBARALU 2026</h2>
+
+                <div id="pdf-export-area">
+                    <table class="ticket-table">
+                        <tr>
+                            <td class="ticket-main-td">
+                                <div class="event-title">UGADI SAMBARALU 2026</div>
                                 <div class="year-name">Sri Parabhava Nama Samvatsaram</div>
-                                <div style="font-size: 10px; color: #666;">PRIMARY GUEST</div>
+                                <div style="font-size: 10px; color: #777;">GUEST NAME</div>
                                 <div class="guest-name" id="out-name">---</div>
-                                <div id="out-id" style="background: var(--deep-green); color: var(--saffron-yellow); padding: 3px 10px; border-radius: 4px; display: inline-block; font-family: monospace; font-weight: bold; font-size: 14px;">ID-0000</div>
-                                
-                                <div class="venue-summary">
-                                    <strong>📍 Korbhauser Weg 1, 28279 Bremen | Namaste!</strong><br>
+                                <div class="id-badge" id="out-id">ID-0000</div>
+                                <div class="venue-box">
+                                    <strong>📍 Korbhauser Weg 1, 28279 Bremen</strong><br>
                                     📅 21.03.2026 | 🕒 15:00 - 21:00
                                 </div>
-                            </div>
-                            <div class="ticket-stub">
+                            </td>
+                            <td class="ticket-stub-td">
                                 <div id="qrcode"></div>
-                                <div style="font-size: 11px; font-weight: bold; margin-top: 8px; color: var(--deep-green);">ENTRY PASS</div>
-                                <div id="out-counts" style="font-size: 10px; color: #555; margin-top: 4px;">---</div>
-                            </div>
-                        </div>
+                                <div style="font-size: 12px; font-weight: bold; color: #1e8449; margin-top: 10px;">ENTRY PASS</div>
+                                <div id="out-counts" style="font-size: 11px; color: #555; margin-top: 5px;">---</div>
+                            </td>
+                        </tr>
+                    </table>
 
-                        <div class="flyer-container">
-                            <img src="Flyer.jpg" alt="Flyer">
-                        </div>
+                    <div class="flyer-row">
+                        <img src="Flyer.jpg" alt="Flyer">
+                    </div>
 
-                        <div class="footer-mention">
-                            Please present this QR code at the entrance for verification.<br>
-                            <b>Location:</b> Korbhauser Weg 1, 28279 Bremen
-                        </div>
+                    <div class="footer-note">
+                        Present this QR code at the entrance. We look forward to seeing you!
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="scan-view" class="view" style="display:none;">
-        <div class="card">
-            <h2 style="text-align: center; color: var(--deep-green);">Entry Scanner</h2>
-            <div id="reader"></div>
-            <div id="scan-result" style="margin-top: 20px; padding: 20px; border-radius: 10px; text-align: center; display: none;"></div>
         </div>
     </div>
 </div>
 
 <script>
     let localDb = [];
-    const qrcode = new QRCode(document.getElementById("qrcode"), { width: 120, height: 120 });
-    let html5QrScanner = null;
+    const qrcode = new QRCode(document.getElementById("qrcode"), { width: 140, height: 140 });
 
     function switchTab(viewId, btn) {
         document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(viewId).style.display = 'block';
         btn.classList.add('active');
-        if(viewId === 'scan-view' && !html5QrScanner) {
-            html5QrScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-            html5QrScanner.render(onScanSuccess);
-        }
     }
 
     document.getElementById('csvFile').addEventListener('change', function(e) {
@@ -228,25 +194,13 @@
         const element = document.getElementById('pdf-export-area');
         const name = document.getElementById('out-name').innerText;
         const opt = {
-            margin: 0,
+            margin: 10,
             filename: `UgadiTicket_${name}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
+            html2canvas: { scale: 2, useCORS: true, letterRendering: true },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().set(opt).from(element).save();
-    }
-
-    function onScanSuccess(decodedText) {
-        const resDiv = document.getElementById('scan-result');
-        resDiv.style.display = 'block';
-        if (decodedText.startsWith("VALID|")) {
-            resDiv.style.background = "#d4edda";
-            resDiv.innerHTML = `<h2 style="color:#155724;">✅ VALID</h2>${decodedText.split('|')[2]}`;
-        } else {
-            resDiv.style.background = "#f8d7da";
-            resDiv.innerHTML = `<h2 style="color:#721c24;">❌ INVALID</h2>`;
-        }
     }
 </script>
 
