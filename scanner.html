@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entry Scanner | TAB Bremen</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        :root { --p-green: #27ae60; --d-green: #1e8449; --saffron: #f1c40f; --cream: #FFFDD0; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--cream); text-align: center; padding: 20px; }
+        .card { background: white; max-width: 500px; margin: auto; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #reader { width: 100%; border-radius: 10px; overflow: hidden; border: 3px solid var(--p-green); }
+        .res { margin-top: 20px; padding: 20px; border-radius: 10px; display: none; }
+        .valid { background: #d4edda; border: 3px solid #27ae60; color: #155724; }
+        .invalid { background: #f8d7da; border: 3px solid #e74c3c; color: #721c24; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .stat-b { background: rgba(255,255,255,0.6); padding: 5px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <a href="index.html" style="text-decoration:none; color: var(--d-green); float:left;">← Hub</a>
+        <h2 style="color: var(--d-green);">Entry Scanner</h2>
+        <div id="status" style="color: orange; font-weight: bold; margin-bottom: 10px;">⚠️ Upload CSV to Start</div>
+        <input type="file" id="csvLoad" accept=".csv" style="margin-bottom: 20px;">
+        
+        <div id="reader"></div>
+        
+        <div id="result" class="res"></div>
+        <button id="nextBtn" onclick="resetScan()" style="display:none; width:100%; padding:10px; margin-top:10px; cursor:pointer;">Scan Next</button>
+    </div>
+
+    <script>
+        let db = [];
+        let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+
+        document.getElementById('csvLoad').onchange = (e) => {
+            const r = new FileReader();
+            r.onload = (ev) => {
+                db = ev.target.result.split('\n').map(l => l.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim())).filter(l => l.length > 1);
+                document.getElementById('status').innerText = "✅ Database Ready";
+                document.getElementById('status').style.color = "green";
+                scanner.render(onScan);
+            };
+            r.readAsText(e.target.files[0]);
+        };
+
+        function onScan(text) {
+            const parts = text.split('|');
+            const id = parts[1];
+            const guest = db.find(r => r[10] === id);
+            const res = document.getElementById('result');
+            res.style.display = "block";
+            document.getElementById('nextBtn').style.display = "block";
+
+            if (guest) {
+                res.className = "res valid";
+                res.innerHTML = `
+                    <h1 style="margin:0">AUTHORIZED</h1>
+                    <h3>${guest[1]}</h3>
+                    <div class="stats">
+                        <div class="stat-b">Adults<br><b>${guest[4]}</b></div>
+                        <div class="stat-b">Students<br><b>${guest[5]}</b></div>
+                        <div class="stat-b">Kids<br><b>${parseInt(guest[6])+parseInt(guest[7])}</b></div>
+                    </div>
+                `;
+            } else {
+                res.className = "res invalid";
+                res.innerHTML = `<h1>INVALID</h1><p>ID ${id} not found in database.</p>`;
+            }
+        }
+
+        function resetScan() {
+            document.getElementById('result').style.display = "none";
+            document.getElementById('nextBtn').style.display = "none";
+        }
+    </script>
+</body>
+</html>
